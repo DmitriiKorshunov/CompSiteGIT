@@ -25,7 +25,7 @@ shUserId = 'A'
 shUserName = 'B'
 shDate = 'C'
 #######################
-databaseBook='./testDateBase.xlsx'
+databaseBook='./base/testDateBase.xlsx'
 
 
 #######################
@@ -266,3 +266,31 @@ def superSearch(reqest):
         infoOut.append('Не найденно')
     
     return (reply_user,infoOut)
+
+
+def superSearchS(reqest):
+    reply_user = list()
+    infoOut = list()
+    lists = typeDict.keys()
+    book = load_workbook(databaseBook)
+    for captain in lists:
+        lis = book[str(captain)]
+        allPos = lis.max_row
+        i = 2
+        while i <= allPos:
+            if len(str(lis['A' + str(i)].value).split(reqest.upper())) > 1:
+                reply_user.append(str(len(reply_user) + 1) + ' ) ' + typeDict[captain] +
+                                  ' с маркировкой: ' + str(lis['A' + str(i)].value) +
+                                  ' в корпусе ' + str(lis['B' + str(i)].value) +
+                                  ' отстаток: ' + str(lis['C' + str(i)].value) + '\nРасположение: ' + str(
+                    lis['G' + str(i)].value))
+                infoOut.append(
+                    'Списать+' + str(captain) + '+' + str(lis['A' + str(i)].value) + '+' + str(lis['B' + str(i)].value)+ '+' + str(lis['C' + str(i)].value))
+                i += 1
+            else:
+                i += 1
+    if len(reply_user) == 0:
+        reply_user.append('Не найденно!')
+        infoOut.append('Не найденно')
+
+    return (reply_user, infoOut)

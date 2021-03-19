@@ -1,18 +1,21 @@
-from flask import Flask
-import Parsing
+from flask import Flask, render_template
+import Parsing, HTML
+
 app = Flask(__name__)
-
-
-
 
 
 from flask import request
 
 @app.route('/', methods=['GET', 'POST'])
 def parse_request():
-    reply_user,infoOut = Parsing.superSearch(request.args.get("comp"))
+    reply_user,infoOut = Parsing.superSearchS(request.args.get("comp"))
     print(infoOut)
-    return str(infoOut)
+    if infoOut[0]=='Не найденно':
+        infoOut[0]='Не найденно+Не найденно+Не найденно+Не найденно+Не найденно+Не найденно'
+        HTML.createTable(infoOut)
+    else:
+        HTML.createTable(infoOut)
+    return render_template('reply.html')
 
 
 @app.route('/about')

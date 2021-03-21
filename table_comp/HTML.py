@@ -1,8 +1,5 @@
 from bs4 import BeautifulSoup as bs
 import Parsing
-import re
-import sys
-import importlib
 
 
 
@@ -12,7 +9,7 @@ def createTable(input):
     for captain in input:
         Req.append(captain.split('+'))
     #Добавление шапки таблицы
-    replyPage=bs(open('pages/result.html', encoding='utf-8'),'html.parser')
+    replyPage=bs(open('templates/result.html', encoding='utf-8'),'html.parser')
     for tg in replyPage.find_all('table'):
         newCaption=replyPage.new_tag('caption')
         newCaption.string=('ТАБЛИЦА КОМПОНЕНТОВ')
@@ -29,8 +26,11 @@ def createTable(input):
             newHanderName = replyPage.new_tag('th')
             newHanderName.string = ('КОРПУС')
             tr.append(newHanderName)
-            newHanderName = replyPage.new_tag('th\n')
+            newHanderName = replyPage.new_tag('th')
             newHanderName.string = ('КОЛИЧЕСТВО')
+            tr.append(newHanderName)
+            newHanderName = replyPage.new_tag('th\n')
+            newHanderName.string = ('Действия')
             tr.append(newHanderName)
 
         while t<len(Req):
@@ -49,6 +49,14 @@ def createTable(input):
                 tg.append(newData)
                 newData = replyPage.new_tag('td')
                 newData.string = str(Req[t][4])
+                tg.append(newData)
+                newData = replyPage.new_tag('td\n')
+                newBot = replyPage.new_tag('button')
+                newBot.string = 'Внести'
+                newData.insert(2, newBot)
+                newBot = replyPage.new_tag('button')
+                newBot.string = 'Списать'
+                newData.insert(2, newBot)
                 tg.append(newData)
             t+=1
 

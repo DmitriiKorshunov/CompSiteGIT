@@ -1,0 +1,46 @@
+body{
+    background-color: rgb(200, 248, 250);
+    -width: 500px;
+
+}
+
+h1{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: oblique;
+    font-size: 25pt;
+    color: rgb(110, 5, 26);
+    background-color: honeydew;
+}
+
+header{
+    background-color: honeydew;
+    height: 100px;
+    text-align: center;
+
+}
+
+input{ 
+    height: 30px;
+    font-size: 20px;    
+}
+
+
+
+table{
+    font-size: x-large;
+    align-items: center;
+    align-content: center;
+    align-self: start;
+}
+
+p{
+    font-size: 20px;
+
+    padding: auto;
+}
+
+button{
+    font-size: large;
+    cursor: crosshair;
+}
